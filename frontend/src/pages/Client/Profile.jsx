@@ -33,6 +33,7 @@ const Profile = () => {
   const [tab, setTab] = useState("profile");
   const [isLoading, setIsLoading] = useState(true);
 
+  // ALL useEffect hooks must be called before any conditional returns
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
@@ -40,24 +41,20 @@ const Profile = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  if (isLoading) {
-    return <Loader fullPage size="xl" />;
-  } 
-
   // Fetch certificates when component mounts or user changes
   useEffect(() => {
-  console.log('Profile useEffect - user:', user); // Add this debug log
-  console.log('Profile useEffect - user.id:', user?.id); // Changed from auth_id to id
-  
-  if (user?.id) { // Changed from auth_id to id
-    console.log('Dispatching fetchUserCertificates for userId:', user.id); // Changed from auth_id to id
-    dispatch(
-      fetchUserCertificates({
-        userId: user.id, // Changed from auth_id to id
-      })
-    );
-  }
-}, [dispatch, user?.id]);
+    console.log("Profile useEffect - user:", user);
+    console.log("Profile useEffect - user.auth_id:", user?.id);
+
+    if (user?.id) {
+      console.log("Dispatching fetchUserCertificates for userId:", user.id);
+      dispatch(
+        fetchUserCertificates({
+          userId: user.id,
+        })
+      );
+    }
+  }, [dispatch, user?.id]);
 
   // Clear error when component unmounts
   useEffect(() => {
@@ -66,34 +63,39 @@ const Profile = () => {
     };
   }, [dispatch]);
 
+  // Conditional return AFTER all hooks
+  if (isLoading) {
+    return <Loader fullPage size="xl" />;
+  }
+
   const handleLogout = () => {
     dispatch(clearUser());
     navigate("/login");
   };
 
   const handleTabChange = (newTab) => {
-  setTab(newTab);
-  if (newTab === "certificates" && user?.id) { // Changed from auth_id to id
-    dispatch(
-      fetchUserCertificates({
-        userId: user.id, // Changed from auth_id to id
-        // Remove firstName and lastName - backend will handle this
-      })
-    );
-  }
-};
+    setTab(newTab);
+    if (newTab === "certificates" && user?.id) {
+      dispatch(
+        fetchUserCertificates({
+          userId: user.id,
+          // Remove firstName and lastName - backend will handle this
+        })
+      );
+    }
+  };
 
   const handleRefreshCertificates = () => {
-  if (user?.auth_id) {
-    console.log('🔄 Refreshing certificates for user:', user.auth_id); // Debug log
-    dispatch(
-      fetchUserCertificates({
-        userId: user.auth_id,
-        // Remove firstName and lastName - backend will handle this
-      })
-    );
-  }
-};
+    if (user?.id) {
+      console.log("🔄 Refreshing certificates for user:", user.id);
+      dispatch(
+        fetchUserCertificates({
+          userId: user.id,
+          // Remove firstName and lastName - backend will handle this
+        })
+      );
+    }
+  };
 
   const formatDate = (dateString) => {
     if (!dateString) return "N/A";
@@ -263,9 +265,7 @@ const Profile = () => {
                 </div>
                 <div style={styles.infoItem}>
                   <label style={styles.infoLabel}>User ID</label>
-                  <p style={styles.infoValue}>
-                    {user?.auth_id || "Not provided"}
-                  </p>
+                  <p style={styles.infoValue}>{user?.id || "Not provided"}</p>
                 </div>
               </div>
             </div>
