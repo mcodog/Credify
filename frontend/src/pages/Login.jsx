@@ -87,6 +87,7 @@ const Login = () => {
       }
     }
   } catch (e) {
+    console.log(e)
     setIsLoading(false);
       
       if (e.response?.data?.message === "invalid_credentials") {
