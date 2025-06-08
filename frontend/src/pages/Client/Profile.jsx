@@ -140,17 +140,9 @@ const Profile = () => {
         <aside style={styles.sidebar}>
           <div style={styles.profileSection}>
             <div style={styles.avatar}>
-<<<<<<< HEAD
               {user?.firstname?.charAt(0)?.toUpperCase() ||
                 user?.name?.charAt(0)?.toUpperCase() ||
                 "U"}
-=======
-          
-              {user?.firstname?.charAt(0)?.toUpperCase() ||
-                user?.name?.charAt(0)?.toUpperCase() ||
-                "U"}
-
->>>>>>> 978114474a50591a94c966b74632ba22a1dadece
             </div>
             <div style={styles.userInfo}>
               <h3 style={styles.userName}>
