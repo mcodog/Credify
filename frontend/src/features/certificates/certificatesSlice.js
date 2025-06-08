@@ -34,13 +34,10 @@ export const uploadCertificateBase64 = createAsyncThunk(
 // New fetch user certificates functionality
 export const fetchUserCertificates = createAsyncThunk(
   "certificates/fetchUserCertificates",
-  async ({ userId, firstName, lastName }, { rejectWithValue }) => {
+  async ({ userId }, { rejectWithValue }) => {
     try {
-      const params = new URLSearchParams();
-      if (firstName) params.append("firstName", firstName);
-      if (lastName) params.append("lastName", lastName);
-
-      const url = `/certificates/user/${userId}/with-name?${params.toString()}`;
+      // Only need userId now - backend will fetch the name
+      const url = `/certificates/user/${userId}/with-name`;
       const res = await axios.get(url);
       return res.data.certificates;
     } catch (err) {

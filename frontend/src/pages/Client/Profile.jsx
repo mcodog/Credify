@@ -33,16 +33,18 @@ const Profile = () => {
 
   // Fetch certificates when component mounts or user changes
   useEffect(() => {
-    if (user?.auth_id && tab === "certificates") {
-      dispatch(
-        fetchUserCertificates({
-          userId: user.auth_id,
-          firstName: user.firstname,
-          lastName: user.lastname,
-        })
-      );
-    }
-  }, [dispatch, user, tab]);
+  console.log('Profile useEffect - user:', user); // Add this debug log
+  console.log('Profile useEffect - user.id:', user?.id); // Changed from auth_id to id
+  
+  if (user?.id) { // Changed from auth_id to id
+    console.log('Dispatching fetchUserCertificates for userId:', user.id); // Changed from auth_id to id
+    dispatch(
+      fetchUserCertificates({
+        userId: user.id, // Changed from auth_id to id
+      })
+    );
+  }
+}, [dispatch, user?.id]);
 
   // Clear error when component unmounts
   useEffect(() => {
@@ -57,29 +59,28 @@ const Profile = () => {
   };
 
   const handleTabChange = (newTab) => {
-    setTab(newTab);
-    if (newTab === "certificates" && user?.auth_id) {
-      dispatch(
-        fetchUserCertificates({
-          userId: user.auth_id,
-          firstName: user.firstname,
-          lastName: user.lastname,
-        })
-      );
-    }
-  };
+  setTab(newTab);
+  if (newTab === "certificates" && user?.id) { // Changed from auth_id to id
+    dispatch(
+      fetchUserCertificates({
+        userId: user.id, // Changed from auth_id to id
+        // Remove firstName and lastName - backend will handle this
+      })
+    );
+  }
+};
 
   const handleRefreshCertificates = () => {
-    if (user?.auth_id) {
-      dispatch(
-        fetchUserCertificates({
-          userId: user.auth_id,
-          firstName: user.firstname,
-          lastName: user.lastname,
-        })
-      );
-    }
-  };
+  if (user?.auth_id) {
+    console.log('🔄 Refreshing certificates for user:', user.auth_id); // Debug log
+    dispatch(
+      fetchUserCertificates({
+        userId: user.auth_id,
+        // Remove firstName and lastName - backend will handle this
+      })
+    );
+  }
+};
 
   const formatDate = (dateString) => {
     if (!dateString) return "N/A";
