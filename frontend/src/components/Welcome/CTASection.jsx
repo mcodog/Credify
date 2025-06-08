@@ -11,30 +11,9 @@ const CTASection = () => {
           </p>
         </div>
         
-        <div className="grid md:grid-cols-3 gap-8 mb-8">
-          <div className="text-center">
-            <h3 className="text-xl font-semibold mb-4 text-[var(--primary-color)]">Contact Us</h3>
-            <p className="text-[var(--primary-color)] mb-2">Email: info@credify.com</p>
-          </div>
-          
-          <div className="text-center">
-            <h3 className="text-xl font-semibold mb-4 text-[var(--primary-color)]">Quick Links</h3>
-            <div className="space-y-2">
-              <p className="text-[var(--primary-color)] hover:text-[var(--primary-color)] cursor-pointer transition-colors">About Us</p>
-            </div>
-          </div>
-          
-          <div className="text-center">
-            <h3 className="text-xl font-semibold mb-4 text-[var(--primary-color)]">Follow Us</h3>
-            <div className="space-y-2">
-              <p className="text-[var(--primary-color)] hover:text-[var(--primary-color)] cursor-pointer transition-colors">GitHub</p>
-            </div>
-          </div>
-        </div>
-        
         <div className="border-t border-[var(--quaternary-color)] pt-8 text-center">
           <p className="text-[var(--primary-color)]">
-            © 2024 Credify. All rights reserved. | Secure credential verification powered by blockchain technology.
+            © 2025 Credify. All rights reserved. | Secure credential verification powered by blockchain technology.
           </p>
         </div>
       </div>

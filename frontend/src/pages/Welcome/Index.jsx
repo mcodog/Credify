@@ -4,14 +4,24 @@ import HeroSection from "../../components/Welcome/HeroSection";
 import FeaturesSection from "../../components/Welcome/FeaturesSection";
 import DevelopersSection from "../../components/Welcome/DevelopersSection";
 import CTASection from "../../components/Welcome/CTASection";
+import Loader from "../../components/layouts/Loader";
 
 const Index = () => {
   const [activeCard, setActiveCard] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setIsVisible(true);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
+    return () => clearTimeout(timer);
   }, []);
+
+  if (isLoading) {
+    return <Loader fullPage size="xl" />;
+  }
 
   const features = [
     {
@@ -43,7 +53,7 @@ const Index = () => {
   const developers = [
     {
       name: "Rajesh Respall",
-      role: "Full Stack Developer",
+      role: "Backend Developer",
       expertise: "React, Node.js, Blockchain",
       image: "👨‍💻",
       bio: "Passionate about creating secure and scalable web applications with 3+ years in system development.",
@@ -51,7 +61,7 @@ const Index = () => {
     },
  {
     "name": "Diana Carreon",
-    "role": "UI/UX Lead Designer",
+    "role": "UI/UX Lead Developer",
     "expertise": "Design Systems, Figma, User Research",
     "image": "👩‍🎨",
     "bio": "Crafting intuitive user experiences with a focus on accessibility and modern design principles.",
@@ -59,7 +69,7 @@ const Index = () => {
   },
   {
     "name": "Mark Bartolome",
-    "role": "UI/UX Assistant",
+    "role": "UI/UX Developer",
     "expertise": "Wireframing, Prototyping, Design Collaboration",
     "image": "👨‍💻",
     "bio": "Supporting design workflows and implementing UI components under the guidance of the UX lead.",
@@ -67,7 +77,7 @@ const Index = () => {
   },
   {
     "name": "Miguel Dacumos",
-    "role": "Backend Engineer",
+    "role": "Full Stack Developer",
     "expertise": "Python, PostgreSQL, AWS",
     "image": "👨‍🔧",
     "bio": "Building robust APIs and database architectures for high-performance applications.",

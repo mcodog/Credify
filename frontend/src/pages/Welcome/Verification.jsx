@@ -25,6 +25,7 @@ import {
   selectStatsLoading,
 } from "../../features/certificates/verificationSelector";
 import Header from "../../components/layouts/Header";
+import Loader from "../../components/layouts/Loader";
 
 const CertificateVerification = () => {
   const dispatch = useDispatch();
@@ -33,13 +34,20 @@ const CertificateVerification = () => {
   const verificationResult = useSelector(selectVerificationResult);
   const stats = useSelector(selectStats);
   const statsLoading = useSelector(selectStatsLoading);
+  const [pageLoading, setPageLoading] = useState(true);
 
   const [file, setFile] = useState(null);
   const [dragActive, setDragActive] = useState(false);
 
   useEffect(() => {
-    dispatch(getVerificationStats());
-  }, [dispatch]);
+    dispatch(getVerificationStats())
+    .finally(() => setPageLoading(false));
+      }, [dispatch]);
+
+  if (pageLoading) {
+    return <Loader fullPage size="xl" />;
+  }
+
 
   // Convert file to base64 string
   const fileToBase64 = (file) =>
