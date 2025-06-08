@@ -63,6 +63,7 @@ const Login = () => {
   setIsLoading(true);
   
   try {
+    console.log('logging in')
     const res = await axios.post("/auth/login", formData);
     if (res.data.message === "Success") {
       await Swal.fire({
